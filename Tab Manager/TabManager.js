@@ -13,6 +13,22 @@ function TabManager(){
 		}
 		This.innerHTML = "";
 		chrome.windows.getAll({populate:true},function(windows){
+			
+			var addwindow;
+			var deletetabs;
+			var pintabs;
+			var search;
+			var layout;
+			This.appendChild(
+				Div("window",
+					search = Txt(),
+					layout = Div("icon windowaction "+This.Layout),
+					deletetabs = Div("icon windowaction trash"),
+					pintabs = Div("icon windowaction pin"),
+					addwindow = Div("icon windowaction new")					
+				)
+			);
+			
 			for(var i = 0; i < windows.length; i++){
 				This.appendChild(Window(windows[i],This));
 			}
@@ -32,20 +48,6 @@ function TabManager(){
 				}
 			}
 			
-			var addwindow;
-			var deletetabs;
-			var pintabs;
-			var search;
-			var layout;
-			This.appendChild(
-				Div("window",
-					search = Txt(),
-					layout = Div("icon windowaction "+This.Layout),
-					deletetabs = Div("icon windowaction trash"),
-					pintabs = Div("icon windowaction pin"),
-					addwindow = Div("icon windowaction new")					
-				)
-			);
 			
 			search.focus();
 			search.select();
@@ -98,11 +100,25 @@ function TabManager(){
 			
 			search.on("keyup",function(){
 				var tabs = This.getElementsByClassName("tab");
+				
 				for(var i = 0; i < tabs.length; i++){
 					var tab = tabs[i];
-					if((tab.Tab.title+tab.Tab.url).toLowerCase().indexOf(search.value.toLowerCase()) >= 0){
-						tab.addClass("selected");
-					}else{
+					
+					if (search.value.length > 0) {
+						tab.addClass("unselected");
+						tab.removeClass("selected");
+						
+						if((tab.Tab.title+tab.Tab.url).toLowerCase().indexOf(search.value.toLowerCase()) >= 0){
+							if (search.value.length > 0) {
+								tab.removeClass("unselected");
+							}
+							tab.addClass("selected");
+						}else{
+							tab.removeClass("selected");
+						}	
+					}
+					else {
+						tab.removeClass("unselected");
 						tab.removeClass("selected");
 					}
 				}

@@ -5,6 +5,13 @@
   	"description": "Let's you very easy and fast handle your tabs!",
 	"icons":{"128":"icon.png","48":"icon48.png"},
   	"permissions": ["tabs"],
+  	"commands" : {
+  		"_execute_browser_action": {
+  			"suggested_key": {
+  				"default": "Ctrl+Shift+X"
+  			}
+  		}
+  	},
   	"background": {
   		"script" : "background.js"
   	},
