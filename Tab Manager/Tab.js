@@ -115,8 +115,8 @@ function Tab(t,w){
 				This.Window.TabManager.Restart();
 			});		
 		}else if(!e.shiftKey && !e.ctrlKey ){
-			//chrome.windows.update(This.Tab.windowId,{focused:true});			
-			chrome.tabs.update(This.ID,{selected:true});			
+			chrome.tabs.update(This.ID,{active:true});
+			chrome.windows.update(This.Tab.windowId,{focused:true});			
 		}
 	});
 
